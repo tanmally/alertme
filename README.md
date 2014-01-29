@@ -44,7 +44,7 @@ Service and Server Monitoring app - Will send an email alert if somethings goes 
 	}
  
 
-## Features implemented 
+## Features 
 
 ### Configure via REST 
   Routes can be added or removed or updated using rest.
