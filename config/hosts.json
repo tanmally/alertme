@@ -1,0 +1,10 @@
+{
+  "hosts": [
+    {
+      "host": "localhost",
+      "port": "8080",
+      "id": 3,
+      "enabled": true
+    }
+  ]
+}

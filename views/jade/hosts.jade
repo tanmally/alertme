@@ -1,0 +1,97 @@
+.container(style='margin: 50px 200px;')
+ div.content(style='min-height: 200px; width:800px; margin : 0px -60px; width:1050px;')
+   div.row(style=' margin-left: -60px;')
+     div.login-form
+      button.btn.btn-success.pull-right(data-toggle='modal' data-target='#hostModal', style='width: 70px;' ng-click='openModal(null, \'add\')') Add
+      h2 Hosts
+      table.table.table-bordered
+        thead
+          tr
+            th Host
+            th Port
+            th Status
+            th Running Since
+            th Outages
+            th Uptime
+            th Action
+            th Edit
+            th Delete
+        tbody
+          tr(ng-repeat='host in hosts')
+            td {{host.host}}
+            td {{host.port}}
+            td
+             img(src='images/button-red-2.png' ng-show='host.state.status == \'error\'')
+             img(src='images/button-green-1.png' ng-show='host.state.status == \'success\'')
+            td {{host.state.running_since | date:'medium'}}
+            td {{host.state.outages}}
+            td {{host.state.uptime}}%
+            td(ng-show='host.config.enabled')
+              button.btn.btn-danger(style='width: 70px;' ng-click='changeEnabled(host._id, \'false\')') Disable
+            td(ng-show='!host.config.enabled')
+              button.btn.btn-success(style='width: 70px;' ng-click='changeEnabled(host._id, \'true\')' ng-disabled='!host.config.ping_service') Enable
+            td
+              button.btn.btn-primary(style='width: 70px;' data-toggle='modal' data-target='#hostModal' ng-click='openModal(host, \'edit\')') Edit
+            td
+              button.btn.btn-danger(style='width: 70px;' data-toggle='modal' data-target='#deleteHostModal' ng-click='deleteHostModal(host._id)') Delete
+              
+#hostModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-body
+        .modal-box
+          .modal-label Host
+          .modal-text
+            input(type='text', value='', name='host', placeholder='Host', ng-model='selectedHost.host', style='width : 300px;')
+        .modal-box
+          .modal-label Port
+          .modal-text
+            input(type='text', value='', name='port', placeholder='Port', ng-model='selectedHost.port', style='width : 300px;')
+        .modal-box
+          .modal-label Ping service name
+          .modal-text(style='margin-top : 5px;')
+            input(type='radio', value='http', name='http', ng-model='selectedHost.config.ping_service', style='margin-top:-1px;') 
+            |   http
+            input(type='radio', value='https', name='https', ng-model='selectedHost.config.ping_service', style='margin-top:-1px; margin-left: 50px;') 
+            |   https
+            input(type='radio', value='smtp', name='smtp', ng-model='selectedHost.config.ping_service', style='margin-top:-1px; margin-left: 50px;') 
+            |   smtp     
+        .modal-box
+          .modal-label Timeout
+          .modal-text
+            input(type='text', value='', name='timeout', placeholder='Milliseconds' ng-model='selectedHost.config.timeout' style='width : 300px;')
+        .modal-box
+          .modal-label Ping interval
+          .modal-text
+            input(type='text', value='', name='ping_interval', placeholder='Seconds' ng-model='selectedHost.config.ping_interval' style='width : 300px;')
+        .modal-box
+          .modal-label Alert to
+          .modal-text
+            input(type='text', value='', name='alert_to', placeholder='Email Id' ng-model='selectedHost.config.alert_to' style='width : 300px;')
+        .modal-box
+          .modal-label Warning if takes more than
+          .modal-text
+            input(type='text', value='', name='warning_if_takes_more_than', placeholder='Milliseconds' ng-model='selectedHost.config.warning_if_takes_more_than' style='width : 300px;')
+        .modal-box
+          .modal-label service(optional)
+          .modal-text
+            input(type='text', value='', name='method', placeholder='Method' ng-model='selectedHost.config.method' style='width : 300px;')
+          .modal-label
+          .modal-text
+            input(type='text', value='', name='url', placeholder='URL' ng-model='selectedHost.config.url' style='width : 300px;')
+          .modal-label
+          .modal-text
+            input(type='text', value='', name='expectedStatuscode', placeholder='Expected status code' ng-model='selectedHost.config.expectedStatuscode' style='width : 300px;')
+          .modal-label
+          .modal-text
+            input(type='text', value='', name='ExpectedData', placeholder='Expected Data' ng-model='selectedHost.config.expectedData' style='width : 300px;')
+      .modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true', ng-click='cancelSave()') Cancel
+        button.btn.btn-primary(data-dismiss='modal', ng-click='saveOrUpdate()') OK   
+        
+
+#deleteHostModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+    .modal-body
+        | Are you sure you want to delete host?
+      .modal-footer
+        button.btn(data-dismiss='modal', aria-hidden='true') Cancel
+        button.btn.btn-primary(type='submit', data-dismiss='modal', ng-click='deleteHost()') OK
+                   
