@@ -3,9 +3,15 @@ var Mailgun = require('mailgun').Mailgun;
 
 exports.sendEmail = function (params) {
 	var mg = new Mailgun(config.mail.apiKey);
+	var to = [];
 	
-	mg.sendRaw(config.mail.from,
-	        [params.to],
+	if((params.to.indexOf(',') > -1)){
+		to = params.to.split(",");
+	} else {
+		to.push(params.to);
+	}
+	
+	mg.sendRaw(config.mail.from, to,
 	        'From: ' + config.mail.from +
 	          '\nTo: ' + params.to +
 	          '\nContent-Type: text/html; charset=utf-8' +
