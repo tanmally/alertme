@@ -16,7 +16,7 @@ WatchMen.prototype.ping = function (params, callback){
   hostsDao.findById(params.host.id, function (err, host){
       if (err) {return callback (err);}
       
-      if(host.config.ping_service){
+      if(host && host.config.ping_service){
 	      if(host.config.ping_service == 'http' || host.config.ping_service == 'https'){
 		      http.ping (host, function(error, body, response, elapsed_time){
 		      var hostConfig = host.config;
@@ -134,6 +134,9 @@ WatchMen.prototype.start = function (){
  }
  
  fs.watchFile("./config/hosts.json", function () {
+	 if(count == 100){
+		 count = 0; 
+	 }
 	 count++;
 	 for(var i=0; i<timeoutIDs.length; i++){
 		 clearTimeout(timeoutIDs[i]);
@@ -147,7 +150,7 @@ WatchMen.prototype.start = function (){
    self.ping ({host:host}, function (err, state){
     if (err){ console.error (err); }
 
-    if (self.daemon_status && host.count == count){
+    if (self.daemon_status && host.count == count && state){
      var timeoutID = setTimeout(launch, parseInt(state.next_attempt_secs, 10) * 1000, host);
      timeoutIDs[host.index] = timeoutID;
     }

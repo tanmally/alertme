@@ -49,20 +49,20 @@ function homeController($scope, $location, host, $timeout) {
 	
 	$scope.saveOrUpdate = function(){
 		if($scope.action == "add"){
-			$scope.saveHost();
+			saveHost();
 		} else if($scope.action == "edit"){
-			$scope.updateHost();
+			updateHost();
 		}
 	};
 
-	$scope.updateHost = function(){
+	var updateHost = function(){
 		var data = {host : $scope.selectedHost, id : $scope.selectedHost._id};
 		host.update(data, function(data){
 			getAllHosts();
 		});
 	};
 	
-	$scope.saveHost = function(){
+	var saveHost = function(){
 		var data = {host : $scope.selectedHost};
 		host.save(data, function(data){
 			getAllHosts();
@@ -74,7 +74,7 @@ function homeController($scope, $location, host, $timeout) {
 		var data = {id : $scope.deleteHostId};
 		host.deleteHost(data, function(data) {
 			$scope.deleteHostId = null;
-			$scope.getAllHosts();
+			getAllHosts();
 		});
 	};
 	
