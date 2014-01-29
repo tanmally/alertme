@@ -71,4 +71,6 @@ Service and Server Monitoring app - Will send an email alert if somethings goes 
 
 <img src="screen-shots/login.png" />
 
+<img src="screen-shots/add.png" />
+
 <img src="screen-shots/home.png" />
