@@ -22,17 +22,21 @@ function homeController($scope, $location, host, $timeout) {
 	var getAllHosts= function(){
 		host.getAllHosts(function(data) {
 			$scope.hosts = data;
-			refresh();
 		});
 	};
 	
 	getAllHosts();
-	
+
 	var refresh = function(){
 	    $timeout(function(){
-	    	getAllHosts();
-	    },10000);
+	    	host.getAllHosts(function(data) {
+				$scope.hosts = data;
+				refresh();
+			});
+	    }, 10000);
 	};
+	
+	refresh();
 
 	$scope.openModal = function(host, action){
 		$scope.action = action;
