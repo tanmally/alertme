@@ -79,7 +79,7 @@ WatchMen.prototype.ping = function (params, callback){
 		        //-------------------------------------
 		        // Response over the limit?
 		        //-------------------------------------
-		        var limit = hostConfig.warning_if_takes_more_than;
+		        var limit = (hostConfig.warning_if_takes_more_than)*1000;
 		        if (limit && (elapsed_time > limit)){ //over the limit. warning!
 		          self.emit('service_warning', host, state);
 		        }

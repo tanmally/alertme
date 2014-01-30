@@ -53,7 +53,7 @@ function ping (host, callback){
   var handled_callback = false;
   var error = null;
 
-  request.setTimeout(host.config.timeout || 10000, function(){
+  request.setTimeout((host.config.timeout * 1000) || 10000, function(){
     if (!handled_callback){
       handled_callback = true;
       callback('Timeout');

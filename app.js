@@ -55,6 +55,17 @@ httpServer.listen(config.app.port, config.app.hostname, function(req,
 		  }
 	});
 	
+	watchmen.on('service_warning', function(host, state) {
+		  if (host.config.enabled && host.config.alert_to){
+			var message =  "<div>WARNING : " + host.host + ":" + host.port + " taking more time to respond." + "</div>";
+			if(host.config.url){
+				message = message + "<br><div>URL : "+host.config.url+"</div>";
+			}
+			var params = {host : host.host, port : host.port, to : host.config.alert_to, message : message};
+		    email.sendEmail(params);
+		  }
+	});
+	
 });
 
 
