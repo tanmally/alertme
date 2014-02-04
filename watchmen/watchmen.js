@@ -100,7 +100,7 @@ WatchMen.prototype.ping = function (params, callback){
 		      }
 		
 		      host.state = state;
-		      hostsDao.updateState({_id : host._id}, host, function (err, result){
+		      hostsDao.updateState(host._id, host, function (err, result){
 		    	  callback (err, state);
 		      });
 		    });

@@ -5,8 +5,8 @@
 var LocalStrategy = require('passport-local').Strategy;
 var userDao = require("../dao/user");
 
-module.exports = function(passport, db, config) {
-	userDao.init(db);
+module.exports = function(passport, dbOpts, config) {
+	userDao.init(dbOpts);
 
 	userDao.findByRole('ADMIN_USER', function(error, result) {
 		if (result == null) {
@@ -25,7 +25,7 @@ module.exports = function(passport, db, config) {
 		} else {
 			result.username = config.credentials.username;
 			result.password = config.credentials.password;
-			userDao.update({role : 'ADMIN_USER'}, result, function(error, result) {
+			userDao.updateByJson({role : 'ADMIN_USER'}, result, function(error, result) {
 				if(error){
 					console.log('failed to update user details');
 				} else {

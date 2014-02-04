@@ -10,6 +10,7 @@
     "jade": "*",
     "connect-restreamer" : "1.0.0",
     "tingodb" : "latest",
+    "mongodb" : "latest",
     "passport" : "latest",
     "passport-local" : "latest",
     "jsonfile" : "latest",

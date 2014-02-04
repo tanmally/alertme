@@ -3,7 +3,19 @@
  */
 
 module.exports = {
-	dbPath : 'C:/tingoDB/data',
+	database : 'mongodb',
+    mongo : {
+        host : "localhost",
+        port : 27017,
+        db : "alertme",
+        opts : {
+            "auto_reconnect": true,
+            "safe": true
+        }
+    },
+    tingo : {
+        "dbPath":"C:/tingoDB/data"
+    },
 	app : {
 		name : 'alertme',
 		hostname : 'localhost',

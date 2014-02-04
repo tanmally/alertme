@@ -4,8 +4,8 @@
 
 var login = require('../controllers/login'), hosts = require('../controllers/hosts'), home=require('../controllers/home');
 
-module.exports = function(app, db, passport, auth) {
-	hosts.init(db);
+module.exports = function(app, dbOptions, passport, auth) {
+	hosts.init(dbOptions);
 
 	app.get('/login', login.login);
 	app.get('/', function(req, res){

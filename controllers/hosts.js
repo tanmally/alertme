@@ -31,7 +31,7 @@ exports.update = function(req, res) {
 				result.port = host.port;
 				result.config = host.config;
 				result.state = host.state;
-				hostsDao.update({_id : host._id}, result, function(error, data){
+				hostsDao.update(host._id, result, function(error, data){
 					if(error){
 						res.send("");
 					} else {
@@ -48,7 +48,7 @@ exports.deleteHost = function(req, res){
 	if(id){
 		hostsDao.findById(id, function(error, host){
 			if(host){
-				hostsDao.deleteById({_id : id}, function(error, data){
+				hostsDao.deleteById(id, function(error, data){
 					if(error){
 						res.send("");
 					} else {
@@ -71,7 +71,7 @@ exports.changeEnabled = function(req, res){
 				} else if (changeEnabled == false){
 					host.config.enabled = false;
 				}
-				hostsDao.update({_id : id}, host, function(error, data){
+				hostsDao.update(id, host, function(error, data){
 					if(error){
 						res.send("");
 					} else {
