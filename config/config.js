@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-	database : 'mongodb',
+	database : 'tingodb',
     mongo : {
         host : "localhost",
         port : 27017,
@@ -11,7 +11,9 @@ module.exports = {
         opts : {
             "auto_reconnect": true,
             "safe": true
-        }
+        },
+        username : "admin",
+        password : "123"
     },
     tingo : {
         "dbPath":"C:/tingoDB/data"
