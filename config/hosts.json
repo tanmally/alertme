@@ -1,10 +1,1 @@
-{
-  "hosts": [
-    {
-      "host": "endure.beyondbytes.co.in",
-      "port": "80",
-      "id": "52f0a665ff89b2fc0c4dc091",
-      "enabled": true
-    }
-  ]
-}
+{}
