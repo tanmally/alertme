@@ -16,7 +16,7 @@ module.exports = {
         password : "123"
     },
     tingo : {
-        "dbPath":"C:/tingoDB/data"
+        "dbPath":"/dockcloud/data"
     },
 	app : {
 		name : 'alertme',
